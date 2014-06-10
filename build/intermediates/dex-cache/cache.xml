@@ -2,16 +2,16 @@
 <pre-dex-items>
 
     <item
-        dex="C:\Users\HCS\AndroidStudioProjects\SimpleKidsDraw\app\build\intermediates\pre-dexed\debug\classes-bce0db1583176f1da51add6139d7746643e7b22b.jar"
-        jar="C:\Users\HCS\AndroidStudioProjects\SimpleKidsDraw\build\intermediates\exploded-aar\com.android.support\appcompat-v7\19.1.0\classes.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
-    <item
-        dex="C:\Users\HCS\AndroidStudioProjects\SimpleKidsDraw\app\build\intermediates\pre-dexed\debug\support-v4-19.1.0-a03e8b182db0f9feeadfc030e86cb09e653baba0.jar"
-        jar="D:\Vyvoj\Android\sdk\extras\android\m2repository\com\android\support\support-v4\19.1.0\support-v4-19.1.0.jar"
+        dex="/home/hcs/Development/Android studioProjects/SimpleKidsDraw/app/build/intermediates/pre-dexed/debug/support-v4-19.1.0-f341e2b1c31c5228d395ed0b746ac23b215de178.jar"
+        jar="/home/hcs/Development/adt-bundle-linux-x86_64-20140321/sdk/adt-bundle-linux-x86_64-20140321/sdk/extras/android/m2repository/com/android/support/support-v4/19.1.0/support-v4-19.1.0.jar"
         jumboMode="false"
         revision="19.1.0"
         sha1="85f201b380937e61a9dce6ca90ccf6872abbfb67"/>
+    <item
+        dex="/home/hcs/Development/Android studioProjects/SimpleKidsDraw/app/build/intermediates/pre-dexed/debug/classes-998df768e7be081652de514b058d2033ed670883.jar"
+        jar="/home/hcs/Development/Android studioProjects/SimpleKidsDraw/build/intermediates/exploded-aar/com.android.support/appcompat-v7/19.1.0/classes.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="3499ceba05ca1f6037c6a2fad73df8f636224a28"/>
 
 </pre-dex-items>
