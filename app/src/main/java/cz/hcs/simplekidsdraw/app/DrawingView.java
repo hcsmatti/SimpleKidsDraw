@@ -13,10 +13,12 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.util.TypedValue;
 
+
 /**
  * Created by HCS on 8.6.2014.
  */
 public class DrawingView extends View {
+    private boolean erase=false;
     private float brushSize, lastBrushSize;
     //drawing path
     private Path drawPath;
@@ -46,6 +48,17 @@ public class DrawingView extends View {
 
     public float getLastBrushSize(){
         return lastBrushSize;
+    }
+
+    public void setErase(boolean isErase){
+        erase = isErase;
+        if(erase) drawPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        else drawPaint.setXfermode(null);
+    }
+
+    public void startNew(){
+        drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        invalidate();
     }
 
     private void setupDrawing(){
