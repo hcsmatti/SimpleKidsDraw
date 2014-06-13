@@ -2,17 +2,23 @@
 <resources>
 
     <string name="app_name">Simple draw for kids</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="start_new">New</string>
     <string name="brush">Brush</string>
     <string name="erase">Erase</string>
     <string name="save">Save</string>
     <string name="paint">Paint</string>
     <string name="title_activity_fullscreen">FullscreenActivity</string>
-    <string name="title_activity_traxa">TraxaActivity</string>
     <string name="sml">Small</string>
     <string name="med">Medium</string>
     <string name="lrg">Large</string>
-
+    <string name="new_title">New drawing</string>
+    <string name="new_warning">Start new drawing (you will lose the current drawing)?</string>
+    <string name="yes">Yes</string>
+    <string name="cancel">Cancel</string>
+    <string name="save_title">Save drawing</string>
+    <string name="save_warning">Save drawing to device Gallery?</string>
+    <string name="save_succes">Drawing saved to Gallery!</string>
+    <string name="save_failed">Oops! Image could not be saved.</string>
+    <string name="brush_size">Brush size:</string>
+    <string name="eraser_size">Eraser size:</string>
 </resources>

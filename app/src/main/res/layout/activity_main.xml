@@ -46,7 +46,7 @@
                 android:src="@drawable/save" />
 
         </LinearLayout>
-    <cz.hcs.simplekidsdraw.app.DrawingView
+    <cz.hcs.app.simpledrawforkids.DrawingView
         android:id="@+id/drawing"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
