@@ -53,7 +53,7 @@ public class MainActivity extends Activity implements OnClickListener {
             smallBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(false);
+                    if (drawView.isErase()) drawView.setErase(false);
                     drawView.setBrushSize(smallBrush);
                     drawView.setLastBrushSize(smallBrush);
                     brushDialog.dismiss();
@@ -63,7 +63,7 @@ public class MainActivity extends Activity implements OnClickListener {
             mediumBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(false);
+                    if (drawView.isErase()) drawView.setErase(false);
                     drawView.setBrushSize(mediumBrush);
                     drawView.setLastBrushSize(mediumBrush);
                     brushDialog.dismiss();
@@ -74,7 +74,7 @@ public class MainActivity extends Activity implements OnClickListener {
             largeBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(false);
+                    if (drawView.isErase()) drawView.setErase(false);
                     drawView.setBrushSize(largeBrush);
                     drawView.setLastBrushSize(largeBrush);
                     brushDialog.dismiss();
@@ -90,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener {
             smallBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(true);
+                    if (!drawView.isErase()) drawView.setErase(true);
                     drawView.setBrushSize(smallBrush);
                     brushDialog.dismiss();
                 }
@@ -99,7 +99,7 @@ public class MainActivity extends Activity implements OnClickListener {
             mediumBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(true);
+                    if (!drawView.isErase()) drawView.setErase(true);
                     drawView.setBrushSize(mediumBrush);
                     brushDialog.dismiss();
                 }
@@ -108,7 +108,7 @@ public class MainActivity extends Activity implements OnClickListener {
             largeBtn.setOnClickListener(new OnClickListener(){
                 @Override
                 public void onClick(View v) {
-                    drawView.setErase(true);
+                    if (!drawView.isErase()) drawView.setErase(true);
                     drawView.setBrushSize(largeBrush);
                     brushDialog.dismiss();
                 }
@@ -167,7 +167,7 @@ public class MainActivity extends Activity implements OnClickListener {
 
     public void paintClicked(View view){
         if(view!=currPaint){
-            drawView.setErase(false);
+            if (drawView.isErase()) drawView.setErase(false);
             drawView.setBrushSize(drawView.getLastBrushSize());
             ImageButton imgView = (ImageButton)view;
             String color = view.getTag().toString();

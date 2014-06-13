@@ -17,6 +17,7 @@ import android.util.TypedValue;
  * Created by HCS on 8.6.2014.
  */
 public class DrawingView extends View {
+
     private boolean erase=false;
     private float brushSize, lastBrushSize;
     //drawing path
@@ -26,7 +27,6 @@ public class DrawingView extends View {
     //initial color
     private int paintColor = 0xFF660000;
     private int oldColor = 1;
-    private boolean oldErase = false;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -52,16 +52,12 @@ public class DrawingView extends View {
     }
 
     public void setErase(boolean isErase){
-        if (isErase && oldErase != isErase ){
-            this.oldColor = this.paintColor;
-            oldErase=isErase;
-            }
         erase = isErase;
         if(erase) {
+            this.oldColor = this.paintColor;
             this.setColor("#FFFFFFFF");
             }
         else {
-            oldErase = isErase;
             paintColor = oldColor;
             drawPaint.setColor(paintColor);
         }
@@ -125,6 +121,10 @@ public class DrawingView extends View {
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
+    }
+
+    public boolean isErase() {
+        return erase;
     }
 
 
