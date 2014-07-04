@@ -4,23 +4,40 @@
     <item>
         <shape android:shape="rectangle" >
             <stroke
-                android:width="4dp"
-                android:color="#FF999999" />
+                android:width="5dp"
+                android:color="#FFCCCCCC" />
             <solid android:color="#00000000" />
             <padding
                 android:bottom="0dp"
                 android:left="0dp"
                 android:right="0dp"
                 android:top="0dp" />
+            <size
+                android:height="30dp"
+                android:width="30dp"/>
         </shape>
     </item>
     <item>
-        <shape xmlns:android="http://schemas.android.com/apk/res/android" >
+        <shape>
             <stroke
-                android:width="4dp"
-                android:color="#FF999999" />
+                android:width="5dp"
+                android:color="#FFCCCCCC" />
             <solid android:color="#00000000" />
             <corners android:radius="10dp" />
+            <size
+                android:height="30dp"
+                android:width="30dp"/>
         </shape>
+    </item>
+    <item android:drawable="@drawable/border_selected">
+        <shape android:shape="rectangle" >
+            <stroke
+                android:width="30dp"
+                android:color="@android:color/transparent" />
+            <size
+                android:height="30dp"
+                android:width="30dp"/>
+        </shape>
+        <!--<nine-patch android:src="@drawable/border_selected" android:dither="true"/>-->
     </item>
 </layer-list>

@@ -1,5 +1,6 @@
 package cz.hcs.app.simpledrawforkids;
 
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.content.Context;
 import android.util.AttributeSet;
@@ -19,6 +20,7 @@ import android.util.TypedValue;
 public class DrawingView extends View {
 
     private boolean erase=false;
+    private MainActivity mainActivity;
     private float brushSize, lastBrushSize;
     //drawing path
     private Path drawPath;
@@ -61,7 +63,7 @@ public class DrawingView extends View {
             paintColor = oldColor;
             drawPaint.setColor(paintColor);
         }
-    }
+     }
 
     public void startNew(){
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
@@ -101,6 +103,7 @@ public class DrawingView extends View {
         float touchY = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                drawCanvas.drawPoint(touchX, touchY,drawPaint);
                 drawPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -115,6 +118,12 @@ public class DrawingView extends View {
         }
         invalidate();
         return true;
+    }
+
+    public int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return px;
     }
 
     public void setColor(String newColor){
