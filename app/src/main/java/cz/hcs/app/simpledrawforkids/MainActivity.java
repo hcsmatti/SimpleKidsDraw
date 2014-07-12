@@ -1,20 +1,26 @@
 package cz.hcs.app.simpledrawforkids;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import java.util.UUID;
-import android.provider.MediaStore;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.provider.MediaStore;
+import android.text.Layout;
+import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.util.UUID;
+
+import static cz.hcs.app.simpledrawforkids.R.id.stroke_btn;
+import static cz.hcs.app.simpledrawforkids.R.id.stroke_layout;
+
 public class MainActivity extends Activity implements OnClickListener {
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, strokeBtn;
+    private Layout strokeLayout;
     private float smallBrush, mediumBrush, largeBrush;
     private DrawingView drawView;
     private String eraserColor = "white";
@@ -27,133 +33,87 @@ public class MainActivity extends Activity implements OnClickListener {
         smallBrush = getResources().getInteger(R.integer.small_size);
         mediumBrush = getResources().getInteger(R.integer.medium_size);
         largeBrush = getResources().getInteger(R.integer.large_size);
-        drawBtn = (ImageButton)findViewById(R.id.draw_btn);
-        drawBtn.setOnClickListener(this);
-        drawView = (DrawingView)findViewById(R.id.drawing);
+        drawView = (DrawingView) findViewById(R.id.drawing);
         drawView.setSaveEnabled(true);
-        LinearLayout paintLayout = (LinearLayout)findViewById(R.id.paint_colors);
-        currPaint = (ImageButton)paintLayout.getChildAt(0);
-        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
+        LinearLayout paintLayout = (LinearLayout) findViewById(R.id.paint_colors);
+        currPaint = (ImageButton) paintLayout.getChildAt(0);
+        currPaint.setImageDrawable(getResources().getDrawable(R.drawable.border_paint_selected));
         drawView.setBrushSize(mediumBrush);
-        eraseBtn = (ImageButton)findViewById(R.id.erase_btn);
-        eraseBtn.setOnClickListener(this);
-        newBtn = (ImageButton)findViewById(R.id.new_btn);
+        newBtn = (ImageButton) findViewById(R.id.new_btn);
         newBtn.setOnClickListener(this);
-        saveBtn = (ImageButton)findViewById(R.id.save_btn);
+        saveBtn = (ImageButton) findViewById(R.id.save_btn);
         saveBtn.setOnClickListener(this);
+        strokeBtn = (ImageButton) findViewById(stroke_btn);
+        strokeBtn.setOnClickListener(this);
+        drawBtn = (ImageButton) findViewById(R.id.draw_btn);
+        eraseBtn = (ImageButton) findViewById(R.id.erase_btn);
     }
 
     @Override
-    public void onClick(View view){
-        if(view.getId()==R.id.draw_btn){
-            final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle(R.string.brush_size);
-            brushDialog.setContentView(R.layout.brush_chooser);
-            ImageButton smallBtn = (ImageButton)brushDialog.findViewById(R.id.small_brush);
-            smallBtn.setOnClickListener(new OnClickListener(){
+    public void onClick(View view) {
+        if (view.getId() == R.id.stroke_btn) {
+            final Dialog strokeDialog = new Dialog(this);
+            strokeDialog.setTitle(R.string.stroke_size);
+            strokeDialog.setContentView(R.layout.stroke_chooser);
+            ImageButton smallBtn = (ImageButton) strokeDialog.findViewById(R.id.small_brush);
+            smallBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (drawView.isErase()) drawView.setErase(false);
-                    changeActiveButton(drawView.isErase());
                     drawView.setBrushSize(smallBrush);
-                    drawView.setLastBrushSize(smallBrush);
-                    brushDialog.dismiss();
+                    strokeBtn.setBackgroundResource(R.drawable.small);
+                    strokeDialog.dismiss();
                 }
             });
-            ImageButton mediumBtn = (ImageButton)brushDialog.findViewById(R.id.medium_brush);
-            mediumBtn.setOnClickListener(new OnClickListener(){
+            ImageButton mediumBtn = (ImageButton) strokeDialog.findViewById(R.id.medium_brush);
+            mediumBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (drawView.isErase()) drawView.setErase(false);
-                    changeActiveButton(drawView.isErase());
                     drawView.setBrushSize(mediumBrush);
-                    drawView.setLastBrushSize(mediumBrush);
-                    brushDialog.dismiss();
+                    strokeBtn.setBackgroundResource(R.drawable.medium);
+                    strokeDialog.dismiss();
                 }
             });
-
-            ImageButton largeBtn = (ImageButton)brushDialog.findViewById(R.id.large_brush);
-            largeBtn.setOnClickListener(new OnClickListener(){
+            ImageButton largeBtn = (ImageButton) strokeDialog.findViewById(R.id.large_brush);
+            largeBtn.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (drawView.isErase()) drawView.setErase(false);
-                    changeActiveButton(drawView.isErase());
                     drawView.setBrushSize(largeBrush);
-                    drawView.setLastBrushSize(largeBrush);
-                    brushDialog.dismiss();
+                    strokeBtn.setBackgroundResource(R.drawable.large);
+                    strokeDialog.dismiss();
                 }
             });
-            brushDialog.show();
-        }
-        else if(view.getId()==R.id.erase_btn){
-            final Dialog brushDialog = new Dialog(this);
-            brushDialog.setTitle(R.string.eraser_size);
-            brushDialog.setContentView(R.layout.brush_chooser);
-            ImageButton smallBtn = (ImageButton)brushDialog.findViewById(R.id.small_brush);
-            smallBtn.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    if (!drawView.isErase()) drawView.setErase(true);
-                    changeActiveButton(drawView.isErase());
-                    drawView.setBrushSize(smallBrush);
-                    brushDialog.dismiss();
-                }
-            });
-            ImageButton mediumBtn = (ImageButton)brushDialog.findViewById(R.id.medium_brush);
-            mediumBtn.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    if (!drawView.isErase()) drawView.setErase(true);
-                    changeActiveButton(drawView.isErase());
-                    drawView.setBrushSize(mediumBrush);
-                    brushDialog.dismiss();
-                }
-            });
-            ImageButton largeBtn = (ImageButton)brushDialog.findViewById(R.id.large_brush);
-            largeBtn.setOnClickListener(new OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    if (!drawView.isErase()) drawView.setErase(true);
-                    changeActiveButton(drawView.isErase());
-                    drawView.setBrushSize(largeBrush);
-                    brushDialog.dismiss();
-                }
-            });
-            brushDialog.show();
-        }
-        else if(view.getId()==R.id.new_btn){
+            strokeDialog.show();
+        } else if (view.getId() == R.id.new_btn) {
             AlertDialog.Builder newDialog = new AlertDialog.Builder(this);
             newDialog.setTitle(R.string.new_title);
             newDialog.setMessage(R.string.new_warning);
-            newDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
+            newDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
                     drawView.startNew();
                     dialog.dismiss();
                 }
             });
-            newDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
+            newDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
             newDialog.show();
-        }
-        else if(view.getId()==R.id.save_btn){
+        } else if (view.getId() == R.id.save_btn) {
             AlertDialog.Builder saveDialog = new AlertDialog.Builder(this);
             saveDialog.setTitle(R.string.save_title);
             saveDialog.setMessage(R.string.save_warning);
-            saveDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
+            saveDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
                     drawView.setDrawingCacheEnabled(true);
                     String imgSaved = MediaStore.Images.Media.insertImage(
                             getContentResolver(), drawView.getDrawingCache(),
-                            UUID.randomUUID().toString()+".png", "drawing");
-                    if(imgSaved!=null){
+                            UUID.randomUUID().toString() + ".png", "drawing");
+                    if (imgSaved != null) {
                         Toast savedToast = Toast.makeText(getApplicationContext(),
                                 R.string.save_succes, Toast.LENGTH_SHORT);
                         savedToast.show();
-                    }
-                    else{
+                    } else {
                         Toast unsavedToast = Toast.makeText(getApplicationContext(),
                                 R.string.save_failed, Toast.LENGTH_SHORT);
                         unsavedToast.show();
@@ -161,8 +121,8 @@ public class MainActivity extends Activity implements OnClickListener {
                     drawView.destroyDrawingCache();
                 }
             });
-            saveDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener(){
-                public void onClick(DialogInterface dialog, int which){
+            saveDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
                     dialog.cancel();
                 }
             });
@@ -170,28 +130,70 @@ public class MainActivity extends Activity implements OnClickListener {
         }
     }
 
+    public void strokeClicked(View view) {
+        final Dialog strokeDialog = new Dialog(this);
+        strokeDialog.setTitle(R.string.stroke_size);
+        strokeDialog.setContentView(R.layout.stroke_chooser);
+        ImageButton smallBtn = (ImageButton) strokeDialog.findViewById(R.id.small_brush);
+        smallBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawView.setBrushSize(smallBrush);
+                strokeBtn.setBackgroundResource(R.drawable.small);
+                strokeDialog.dismiss();
+            }
+        });
+        ImageButton mediumBtn = (ImageButton) strokeDialog.findViewById(R.id.medium_brush);
+        mediumBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawView.setBrushSize(mediumBrush);
+                strokeBtn.setBackgroundResource(R.drawable.medium);
+                strokeDialog.dismiss();
+            }
+        });
+        ImageButton largeBtn = (ImageButton) strokeDialog.findViewById(R.id.large_brush);
+        largeBtn.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawView.setBrushSize(largeBrush);
+                strokeBtn.setBackgroundResource(R.drawable.large);
+                strokeDialog.dismiss();
+            }
+        });
+        strokeDialog.show();
+    }
 
-    public void paintClicked(View view){
-        if(view!=currPaint){
-            if (drawView.isErase()) drawView.setErase(false);
+    public void brushClicked(View view) {
+        drawView.setErase(false);
+        changeActiveButton(drawView.isErase());
+    }
+
+    public void rubberClicked(View view) {
+        drawView.setErase(true);
+        changeActiveButton(drawView.isErase());
+    }
+
+    public void paintClicked(View view) {
+        if (view != currPaint) {
+            drawView.setErase(false);
             changeActiveButton(drawView.isErase());
-            drawView.setBrushSize(drawView.getLastBrushSize());
-            ImageButton imgView = (ImageButton)view;
+            ImageButton imgView = (ImageButton) view;
             String color = view.getTag().toString();
             drawView.setColor(color);
-            imgView.setImageDrawable(getResources().getDrawable(R.drawable.paint_pressed));
-            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.paint));
-            currPaint=(ImageButton)view;
+            imgView.setImageDrawable(getResources().getDrawable(R.drawable.border_paint_selected));
+            currPaint.setImageDrawable(getResources().getDrawable(R.drawable.border_paint_default));
+            currPaint = (ImageButton) view;
         }
     }
 
-    public void changeActiveButton(boolean isErase){
-        if (isErase){
-            drawBtn.setImageResource(R.drawable.brush_default);
-            eraseBtn.setImageResource(R.drawable.rubber_selected);
+    public void changeActiveButton(boolean isErase) {
+        if (isErase) {
+            drawBtn.setBackgroundResource(R.drawable.brush_default);
+            eraseBtn.setBackgroundResource(R.drawable.rubber_selected);
         } else {
-            drawBtn.setImageResource(R.drawable.brush_selected);
-            eraseBtn.setImageResource(R.drawable.rubber_default);
+            drawBtn.setBackgroundResource(R.drawable.brush_selected);
+            eraseBtn.setBackgroundResource(R.drawable.rubber_default);
         }
     }
 

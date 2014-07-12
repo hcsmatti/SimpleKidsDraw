@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Simple draw for kids</string>
+    <string name="app_name">Simple drawing for kids</string>
     <string name="start_new">Nový</string>
     <string name="brush">Štětec</string>
     <string name="erase">Guma</string>
@@ -12,13 +12,13 @@
     <string name="med">střední</string>
     <string name="lrg">Velký</string>
     <string name="new_title">Nový obrázek</string>
-    <string name="new_warning">Začít nový (neuložený obrázek bude ztracen)?</string>
+    <string name="new_warning">Začít nový?\n(neuložený obrázek bude ztracen)</string>
     <string name="yes">Ano</string>
     <string name="cancel">Zrušit</string>
     <string name="save_title">Uložit obrázek</string>
     <string name="save_warning">Uložit obrázek do galerie?</string>
     <string name="save_succes">Obrázek uložen do galerie!</string>
     <string name="save_failed">Sakryš! Obrázek nejde uložit.</string>
-    <string name="brush_size">Velikost štětce:</string>
-    <string name="eraser_size">Velikost gumy:</string>
+    <string name="stroke_size">Velikost nástroje:</string>
+    <string name="stroke">Tloušťka</string>
 </resources>

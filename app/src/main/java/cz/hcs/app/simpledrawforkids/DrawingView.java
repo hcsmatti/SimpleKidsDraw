@@ -1,17 +1,17 @@
 package cz.hcs.app.simpledrawforkids;
 
-import android.util.DisplayMetrics;
-import android.view.View;
 import android.content.Context;
-import android.util.AttributeSet;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.Color;
-import android.view.MotionEvent;
 import android.graphics.PorterDuff;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import android.view.MotionEvent;
+import android.view.View;
 
 
 /**
@@ -19,9 +19,8 @@ import android.util.TypedValue;
  */
 public class DrawingView extends View {
 
-    private boolean erase=false;
-    private MainActivity mainActivity;
-    private float brushSize, lastBrushSize;
+    private boolean erase = false;
+    private float brushSize;
     //drawing path
     private Path drawPath;
     //drawing and canvas paint
@@ -33,46 +32,38 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
-    public DrawingView(Context context, AttributeSet attrs){
+
+    public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setupDrawing();
     }
 
-    public void setBrushSize(float newSize){
+    public void setBrushSize(float newSize) {
         float pixelAmount = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
                 newSize, getResources().getDisplayMetrics());
-        brushSize=pixelAmount;
+        brushSize = pixelAmount;
+
         drawPaint.setStrokeWidth(brushSize);
     }
 
-    public void setLastBrushSize(float lastSize){
-        lastBrushSize=lastSize;
-    }
-
-    public float getLastBrushSize(){
-        return lastBrushSize;
-    }
-
-    public void setErase(boolean isErase){
+    public void setErase(boolean isErase) {
         erase = isErase;
-        if(erase) {
+        if (isErase) {
             this.oldColor = this.paintColor;
             this.setColor("#FFFFFFFF");
-            }
-        else {
+        } else {
             paintColor = oldColor;
             drawPaint.setColor(paintColor);
         }
-     }
+    }
 
-    public void startNew(){
+    public void startNew() {
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
         invalidate();
     }
 
-    private void setupDrawing(){
+    private void setupDrawing() {
         brushSize = getResources().getInteger(R.integer.medium_size);
-        lastBrushSize = brushSize;
         drawPath = new Path();
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
@@ -103,7 +94,7 @@ public class DrawingView extends View {
         float touchY = event.getY();
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                drawCanvas.drawPoint(touchX, touchY,drawPaint);
+                drawCanvas.drawPoint(touchX, touchY, drawPaint);
                 drawPath.moveTo(touchX, touchY);
                 break;
             case MotionEvent.ACTION_MOVE:
@@ -126,7 +117,7 @@ public class DrawingView extends View {
         return px;
     }
 
-    public void setColor(String newColor){
+    public void setColor(String newColor) {
         invalidate();
         paintColor = Color.parseColor(newColor);
         drawPaint.setColor(paintColor);
