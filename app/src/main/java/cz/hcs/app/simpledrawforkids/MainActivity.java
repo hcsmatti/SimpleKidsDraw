@@ -165,7 +165,9 @@ public class MainActivity extends Activity implements OnClickListener {
     }
 
     public void brushClicked(View view) {
+        if (drawView.isErase()){
         drawView.setErase(false);
+        }
         changeActiveButton(drawView.isErase());
     }
 
