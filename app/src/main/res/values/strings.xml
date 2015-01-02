@@ -21,4 +21,5 @@
     <string name="save_failed">Oops! Image could not be saved.</string>
     <string name="stroke_size">Tool thickness:</string>
     <string name="stroke">Thickness</string>
+    <string name="open">Open</string>
 </resources>

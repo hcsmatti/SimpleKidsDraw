@@ -19,7 +19,7 @@ import static cz.hcs.app.simpledrawforkids.R.id.stroke_btn;
 import static cz.hcs.app.simpledrawforkids.R.id.stroke_layout;
 
 public class MainActivity extends Activity implements OnClickListener {
-    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, strokeBtn;
+    private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, openBtn, strokeBtn;
     private Layout strokeLayout;
     private float smallBrush, mediumBrush, largeBrush;
     private DrawingView drawView;
@@ -41,6 +41,8 @@ public class MainActivity extends Activity implements OnClickListener {
         drawView.setBrushSize(mediumBrush);
         newBtn = (ImageButton) findViewById(R.id.new_btn);
         newBtn.setOnClickListener(this);
+        openBtn = (ImageButton) findViewById(R.id.open_btn);
+        openBtn.setOnClickListener(this);
         saveBtn = (ImageButton) findViewById(R.id.save_btn);
         saveBtn.setOnClickListener(this);
         strokeBtn = (ImageButton) findViewById(stroke_btn);
