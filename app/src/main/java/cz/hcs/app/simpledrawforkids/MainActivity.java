@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.text.Layout;
@@ -16,9 +19,9 @@ import android.widget.Toast;
 import java.util.UUID;
 
 import static cz.hcs.app.simpledrawforkids.R.id.stroke_btn;
-import static cz.hcs.app.simpledrawforkids.R.id.stroke_layout;
 
 public class MainActivity extends Activity implements OnClickListener {
+    private static final int REQ_CODE_PICK_IMAGE = 1;
     private ImageButton currPaint, drawBtn, eraseBtn, newBtn, saveBtn, openBtn, strokeBtn;
     private Layout strokeLayout;
     private float smallBrush, mediumBrush, largeBrush;
@@ -129,6 +132,44 @@ public class MainActivity extends Activity implements OnClickListener {
                 }
             });
             saveDialog.show();
+        } else if (view.getId() == R.id.open_btn) {
+            AlertDialog.Builder openDialog = new AlertDialog.Builder(this);
+            openDialog.setTitle(R.string.open_title);
+            openDialog.setMessage(R.string.open_warning);
+            openDialog.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent choosePictureIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(choosePictureIntent, REQ_CODE_PICK_IMAGE);
+                }
+            });
+            openDialog.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.cancel();
+                }
+            });
+            openDialog.show();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case REQ_CODE_PICK_IMAGE:
+                if(resultCode == RESULT_OK){
+                    Uri selectedImage = imageReturnedIntent.getData();
+                    String[] filePathColumn = {MediaStore.Images.Media.DATA};
+
+                    Cursor cursor = getContentResolver().query(
+                            selectedImage, filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+
+                    int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                    String filePath = cursor.getString(columnIndex);
+                    cursor.close();
+                    drawView.openImage(filePath);
+                }
         }
     }
 

@@ -1,17 +1,22 @@
 package cz.hcs.app.simpledrawforkids;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PorterDuff;
+import android.net.Uri;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
 
 /**
@@ -32,6 +37,8 @@ public class DrawingView extends View {
     private Canvas drawCanvas;
     //canvas bitmap
     private Bitmap canvasBitmap;
+
+    private static final int SELECT_PICTURE = 1;
 
     public DrawingView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,6 +68,15 @@ public class DrawingView extends View {
         drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
         invalidate();
     }
+
+    public void openImage(String path) {
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        bitmap = Bitmap.createScaledBitmap(bitmap, drawCanvas.getWidth(), drawCanvas.getHeight(), false);
+        invalidate();
+        drawCanvas.drawBitmap(bitmap, 0, 0, null);
+    }
+
+    
 
     private void setupDrawing() {
         brushSize = getResources().getInteger(R.integer.medium_size);

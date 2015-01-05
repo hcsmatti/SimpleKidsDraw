@@ -12,11 +12,13 @@
     <string name="med">střední</string>
     <string name="lrg">Velký</string>
     <string name="new_title">Nový obrázek</string>
-    <string name="new_warning">Začít nový?\n(neuložený obrázek bude ztracen)</string>
+    <string name="new_warning">Začít nový?\n(neuložený obrázek bude ztracen!)</string>
     <string name="yes">Ano</string>
     <string name="cancel">Zrušit</string>
     <string name="save_title">Uložit obrázek</string>
+    <string name="open_title">Otevřít obrázek ?</string>
     <string name="save_warning">Uložit obrázek do galerie?</string>
+    <string name="open_warning">Dosavadní obrázek bude ztracen.\n Opravdu chcete pokračovat ?</string>
     <string name="save_succes">Obrázek uložen do galerie!</string>
     <string name="save_failed">Sakryš! Obrázek nejde uložit.</string>
     <string name="stroke_size">Velikost nástroje:</string>

@@ -16,7 +16,9 @@
     <string name="yes">Yes</string>
     <string name="cancel">Cancel</string>
     <string name="save_title">Save drawing</string>
+    <string name="open_title">Open old drawing</string>
     <string name="save_warning">Save drawing to device Gallery?</string>
+    <string name="open_warning">Your work will be lost.\n Do you want to continue ?</string>
     <string name="save_succes">Drawing saved to Gallery!</string>
     <string name="save_failed">Oops! Image could not be saved.</string>
     <string name="stroke_size">Tool thickness:</string>
